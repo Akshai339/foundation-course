@@ -1,8 +1,8 @@
-# Foundation — a 12-week product design course
+﻿# Foundation — a 12-week product design course
 
 A self-contained product design curriculum: **12 weeks · 72 days · ~130 hours** at 90–120 minutes a day, with four checkpoint assessments and three project studios.
 
-**→ [Open the app](https://design706.github.io/foundation-course/)** *(live once GitHub Pages is enabled)*
+**→ [Open the app](https://Akshai339.github.io/foundation-course/)** *(live once GitHub Pages is enabled)*
 
 ---
 
