@@ -51,12 +51,31 @@ Cold transfer tests at each phase boundary, scored on five axes. The instrument 
 
 ---
 
+## Running it — Claude is the primary way
+
+Clone the repo, open Claude Code in it, and say:
+
+```bash
+/product-design-course
+```
+
+`CLAUDE.md` and `.claude/skills/` are committed, so Claude picks up the tutor role automatically — no install step, on any machine. It reads `PROGRESS.md`, teaches the day's concept conversationally, sets the drill, and writes progress back.
+
+It will also critique your work (enforcing structural → interaction → visual order), run the four checkpoints, and tell you when your self-score is generous — the one thing you can't do alone.
+
+**Progress is committed.** `PROGRESS.md` travels with the repo, so a session on any machine knows where you are. Commit it at the end of each session and your position follows you.
+
+---
+
 ## Files
 
 | | |
 |---|---|
-| `index.html` | The app. Self-contained, no build step, works offline. |
-| `00 Start Here.md` | Philosophy, the daily ritual, progress |
+| `PROGRESS.md` | **Source of truth.** Current day, checkpoint scores, session log. |
+| `CLAUDE.md` | Tutor instructions — how Claude runs the course |
+| `.claude/skills/` | The `/product-design-course` skill, project-scoped |
+| `index.html` | The app — self-contained, no build step, works offline |
+| `00 Start Here.md` | Philosophy, the daily ritual |
 | `01 The Curriculum.md` | All 72 days on one page |
 | `02 Resource Library.md` | Every paper, book, course and tool |
 | `03 The Studios.md` | The three project briefs |
@@ -64,21 +83,7 @@ Cold transfer tests at each phase boundary, scored on five axes. The instrument 
 | `05 Checkpoints.md` | The four assessments and the profile |
 | `Week 01…12 .md` | The lessons |
 
-Progress lives in browser localStorage — it is **not** committed here. The Sync tab in the app produces a code for moving it between devices.
-
----
-
-## Running it with Claude
-
-The course ships as a Claude Code skill. From any session with this repo available:
-
-```bash
-/product-design-course
-```
-
-Claude picks up where you left off, teaches the day's concept, sets the drill, critiques what you made — enforcing structural → interaction → visual order — and runs the checkpoints, including telling you when your self-score is generous.
-
-Install the skill by copying `skill/SKILL.md` to `~/.claude/skills/product-design-course/SKILL.md`.
+The app keeps its own progress in browser localStorage, separate from `PROGRESS.md`. If they disagree, `PROGRESS.md` wins.
 
 ---
 
