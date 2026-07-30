@@ -15,56 +15,71 @@
 </script>
 
 <style>
+  /* ---------------------------------------------------------------
+     Palette follows Zero (z-ro.co): #111111 ground, #CAF76F lime,
+     #FAFAFA text, Manrope 700 with tight negative tracking, square
+     corners. Lime is a FILL, never body text — it fails contrast on
+     white, and Zero uses it as a block anyway.
+     Dark is the default because Zero is dark-first.
+     --------------------------------------------------------------- */
   :root {
-    --ground:#F5F6F8; --surface:#FFFFFF; --surface-2:#EBEEF2; --surface-3:#E0E4EB;
-    --ink:#111519; --ink-2:#48525F; --ink-3:#7A8492;
-    --line:#DBDFE7; --line-2:#C4CAD5;
-    --accent:#1E38C4; --accent-ink:#1E38C4; --accent-soft:#E6EAFA; --accent-line:#B9C3F0;
-    --good:#146B4B; --good-soft:#E2F2EA;
-    --warn:#8A5A00; --warn-soft:#FBF2DE;
-    --p1:#BDC7F0; --p2:#8D9CE4; --p3:#4C61D4; --p4:#1E38C4;
-    --on-p1:#111519; --on-p2:#FFFFFF; --on-p3:#FFFFFF; --on-p4:#FFFFFF;
-    --shadow:0 1px 2px rgba(17,21,25,.05), 0 10px 30px -20px rgba(17,21,25,.25);
-    --shadow-lg:0 2px 6px rgba(17,21,25,.06), 0 24px 60px -30px rgba(17,21,25,.35);
-    --serif: ui-serif, "Iowan Old Style", Georgia, "Times New Roman", serif;
-    --sans: -apple-system, "Segoe UI Variable Text", "Segoe UI", system-ui, Roboto, sans-serif;
+    --ground:#111111; --surface:#1A1A1A; --surface-2:#242424; --surface-3:#2F2F2F;
+    --ink:#FAFAFA; --ink-2:#B4B4B4; --ink-3:#808080;
+    --line:#2B2B2B; --line-2:#3D3D3D;
+    --accent:#CAF76F; --on-accent:#111111;
+    --accent-ink:#CAF76F; --accent-soft:#1E2416; --accent-line:#3F4A28;
+    --good:#CAF76F; --good-soft:#1E2416;
+    --warn:#E8C468; --warn-soft:#282112;
+    --p1:#3A4228; --p2:#6C8340; --p3:#9CC459; --p4:#CAF76F;
+    --on-p1:#D8E4B8; --on-p2:#111111; --on-p3:#111111; --on-p4:#111111;
+    --shadow:0 1px 2px rgba(0,0,0,.6), 0 10px 30px -20px rgba(0,0,0,.9);
+    --shadow-lg:0 2px 6px rgba(0,0,0,.6), 0 24px 60px -30px rgba(0,0,0,1);
+    --r:4px; --r-sm:2px;
+    /* Manrope isn't loadable here (artifact CSP blocks font CDNs), so this is a
+       grotesque fallback stack. The Manrope *behaviour* — heavy display weights
+       and tight negative tracking — is applied below. */
+    --serif: "Manrope", "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --sans:  "Manrope", "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
     --mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, "Liberation Mono", monospace;
   }
-  @media (prefers-color-scheme: dark) {
+  @media (prefers-color-scheme: light) {
     :root {
-      --ground:#0B0E12; --surface:#13171D; --surface-2:#1A1F27; --surface-3:#232933;
-      --ink:#E8ECF2; --ink-2:#A2ABB9; --ink-3:#6B7583;
-      --line:#242A33; --line-2:#333B47;
-      --accent:#8298FF; --accent-ink:#A6B4FF; --accent-soft:#171F3B; --accent-line:#2E3A66;
-      --good:#5FD1A2; --good-soft:#10241C;
-      --warn:#DDA84B; --warn-soft:#231C0D;
-      --p1:#293251; --p2:#3C4B87; --p3:#5A70C9; --p4:#8298FF;
-      --on-p1:#C5CDE4; --on-p2:#EAEEFB; --on-p3:#0B0E12; --on-p4:#0B0E12;
-      --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 30px -20px rgba(0,0,0,.8);
-      --shadow-lg:0 2px 6px rgba(0,0,0,.5), 0 24px 60px -30px rgba(0,0,0,.9);
+      --ground:#FAFAFA; --surface:#FFFFFF; --surface-2:#F1F1F1; --surface-3:#E5E5E5;
+      --ink:#111111; --ink-2:#525252; --ink-3:#808080;
+      --line:#E2E2E2; --line-2:#CBCBCB;
+      --accent:#CAF76F; --on-accent:#111111;
+      --accent-ink:#111111; --accent-soft:#F0FBDC; --accent-line:#C7E08F;
+      --good:#3E6B12; --good-soft:#F0FBDC;
+      --warn:#7A5B00; --warn-soft:#FBF3DC;
+      --p1:#E7F6C6; --p2:#CAF76F; --p3:#9CC459; --p4:#5F7F2E;
+      --on-p1:#111111; --on-p2:#111111; --on-p3:#111111; --on-p4:#FFFFFF;
+      --shadow:0 1px 2px rgba(17,17,17,.05), 0 10px 30px -20px rgba(17,17,17,.28);
+      --shadow-lg:0 2px 6px rgba(17,17,17,.06), 0 24px 60px -30px rgba(17,17,17,.4);
     }
   }
   :root[data-theme="dark"]{
-    --ground:#0B0E12; --surface:#13171D; --surface-2:#1A1F27; --surface-3:#232933;
-    --ink:#E8ECF2; --ink-2:#A2ABB9; --ink-3:#6B7583;
-    --line:#242A33; --line-2:#333B47;
-    --accent:#8298FF; --accent-ink:#A6B4FF; --accent-soft:#171F3B; --accent-line:#2E3A66;
-    --good:#5FD1A2; --good-soft:#10241C; --warn:#DDA84B; --warn-soft:#231C0D;
-    --p1:#293251; --p2:#3C4B87; --p3:#5A70C9; --p4:#8298FF;
-    --on-p1:#C5CDE4; --on-p2:#EAEEFB; --on-p3:#0B0E12; --on-p4:#0B0E12;
-    --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 30px -20px rgba(0,0,0,.8);
-    --shadow-lg:0 2px 6px rgba(0,0,0,.5), 0 24px 60px -30px rgba(0,0,0,.9);
+    --ground:#111111; --surface:#1A1A1A; --surface-2:#242424; --surface-3:#2F2F2F;
+    --ink:#FAFAFA; --ink-2:#B4B4B4; --ink-3:#808080;
+    --line:#2B2B2B; --line-2:#3D3D3D;
+    --accent:#CAF76F; --on-accent:#111111;
+    --accent-ink:#CAF76F; --accent-soft:#1E2416; --accent-line:#3F4A28;
+    --good:#CAF76F; --good-soft:#1E2416; --warn:#E8C468; --warn-soft:#282112;
+    --p1:#3A4228; --p2:#6C8340; --p3:#9CC459; --p4:#CAF76F;
+    --on-p1:#D8E4B8; --on-p2:#111111; --on-p3:#111111; --on-p4:#111111;
+    --shadow:0 1px 2px rgba(0,0,0,.6), 0 10px 30px -20px rgba(0,0,0,.9);
+    --shadow-lg:0 2px 6px rgba(0,0,0,.6), 0 24px 60px -30px rgba(0,0,0,1);
   }
   :root[data-theme="light"]{
-    --ground:#F5F6F8; --surface:#FFFFFF; --surface-2:#EBEEF2; --surface-3:#E0E4EB;
-    --ink:#111519; --ink-2:#48525F; --ink-3:#7A8492;
-    --line:#DBDFE7; --line-2:#C4CAD5;
-    --accent:#1E38C4; --accent-ink:#1E38C4; --accent-soft:#E6EAFA; --accent-line:#B9C3F0;
-    --good:#146B4B; --good-soft:#E2F2EA; --warn:#8A5A00; --warn-soft:#FBF2DE;
-    --p1:#BDC7F0; --p2:#8D9CE4; --p3:#4C61D4; --p4:#1E38C4;
-    --on-p1:#111519; --on-p2:#FFFFFF; --on-p3:#FFFFFF; --on-p4:#FFFFFF;
-    --shadow:0 1px 2px rgba(17,21,25,.05), 0 10px 30px -20px rgba(17,21,25,.25);
-    --shadow-lg:0 2px 6px rgba(17,21,25,.06), 0 24px 60px -30px rgba(17,21,25,.35);
+    --ground:#FAFAFA; --surface:#FFFFFF; --surface-2:#F1F1F1; --surface-3:#E5E5E5;
+    --ink:#111111; --ink-2:#525252; --ink-3:#808080;
+    --line:#E2E2E2; --line-2:#CBCBCB;
+    --accent:#CAF76F; --on-accent:#111111;
+    --accent-ink:#111111; --accent-soft:#F0FBDC; --accent-line:#C7E08F;
+    --good:#3E6B12; --good-soft:#F0FBDC; --warn:#7A5B00; --warn-soft:#FBF3DC;
+    --p1:#E7F6C6; --p2:#CAF76F; --p3:#9CC459; --p4:#5F7F2E;
+    --on-p1:#111111; --on-p2:#111111; --on-p3:#111111; --on-p4:#FFFFFF;
+    --shadow:0 1px 2px rgba(17,17,17,.05), 0 10px 30px -20px rgba(17,17,17,.28);
+    --shadow-lg:0 2px 6px rgba(17,17,17,.06), 0 24px 60px -30px rgba(17,17,17,.4);
   }
 
   *{box-sizing:border-box;}
@@ -76,7 +91,7 @@
   }
   button{font:inherit;color:inherit;}
   a{color:var(--accent-ink);}
-  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px;}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px;}
 
   /* ================= APP SHELL ================= */
 
@@ -88,13 +103,13 @@
     position:sticky;top:0;height:100vh;overflow-y:auto;
   }
   .brand{padding:22px 20px 18px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:3px;}
-  .brand b{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.015em;}
+  .brand b{font-family:var(--serif);font-size:24px;font-weight:800;letter-spacing:-.06em;text-transform:lowercase;}
   .brand span{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);}
 
   nav{padding:12px 10px;display:flex;flex-direction:column;gap:2px;}
   .navbtn{
     display:flex;align-items:center;gap:11px;width:100%;
-    padding:9px 11px;border:0;background:none;border-radius:5px;
+    padding:9px 11px;border:0;background:none;border-radius:4px;
     cursor:pointer;text-align:left;font-size:14.5px;color:var(--ink-2);
   }
   .navbtn:hover{background:var(--surface-2);color:var(--ink);}
@@ -121,7 +136,7 @@
   .crumb{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);}
   .topbar .sp{flex:1;}
   .tbtn{
-    background:var(--surface);border:1px solid var(--line);border-radius:5px;
+    background:var(--surface);border:1px solid var(--line);border-radius:4px;
     padding:6px 12px;font-size:13px;cursor:pointer;color:var(--ink-2);white-space:nowrap;
   }
   .tbtn:hover{border-color:var(--line-2);color:var(--ink);}
@@ -131,9 +146,9 @@
 
   /* ================= TYPE ================= */
 
-  h1.vt{font-family:var(--serif);font-size:clamp(30px,4.6vw,44px);font-weight:600;letter-spacing:-.02em;line-height:1.08;margin:0;text-wrap:balance;}
-  h2.st{font-family:var(--serif);font-size:clamp(22px,3vw,28px);font-weight:600;letter-spacing:-.015em;margin:0;text-wrap:balance;}
-  .lede{font-family:var(--serif);font-size:clamp(16.5px,2vw,19px);line-height:1.55;color:var(--ink-2);max-width:62ch;margin:0;text-wrap:pretty;}
+  h1.vt{font-family:var(--serif);font-size:clamp(31px,4.8vw,46px);font-weight:800;letter-spacing:-.055em;line-height:1.03;margin:0;text-wrap:balance;}
+  h2.st{font-family:var(--serif);font-size:clamp(22px,3vw,29px);font-weight:800;letter-spacing:-.04em;margin:0;text-wrap:balance;}
+  .lede{font-family:var(--sans);font-size:clamp(16.5px,2vw,19px);font-weight:500;line-height:1.5;letter-spacing:-.011em;color:var(--ink-2);max-width:62ch;margin:0;text-wrap:pretty;}
   .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:0;}
 
   /* ================= TODAY ================= */
@@ -142,7 +157,7 @@
   .today-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
   .chip{
     font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;
-    text-transform:uppercase;padding:4px 8px;border-radius:3px;white-space:nowrap;
+    text-transform:uppercase;padding:4px 8px;border-radius:2px;white-space:nowrap;
   }
   .chip.ph1{background:var(--p1);color:var(--on-p1);}
   .chip.ph2{background:var(--p2);color:var(--on-p2);}
@@ -161,7 +176,7 @@
 
   .blocks{display:flex;flex-direction:column;gap:18px;max-width:none;}
 
-  .block{background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden;box-shadow:var(--shadow);}
+  .block{background:var(--surface);border:1px solid var(--line);border-radius:4px;overflow:hidden;box-shadow:var(--shadow);}
   .block-head{
     display:flex;align-items:center;gap:11px;padding:13px 20px;
     border-bottom:1px solid var(--line);background:var(--surface-2);
@@ -187,12 +202,12 @@
     font-family:var(--serif);font-size:16.5px;line-height:1.5;color:var(--ink);
   }
   .prose blockquote p{margin:0;color:inherit;font-size:inherit;line-height:inherit;}
-  .prose code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);padding:1px 5px;border-radius:3px;border:1px solid var(--line);}
+  .prose code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);padding:1px 5px;border-radius:2px;border:1px solid var(--line);}
   .prose pre{
     font-family:var(--mono);font-size:12.5px;line-height:1.6;background:var(--surface-2);
-    border:1px solid var(--line);border-radius:5px;padding:14px 16px;overflow-x:auto;margin:0 0 16px;color:var(--ink-2);
+    border:1px solid var(--line);border-radius:4px;padding:14px 16px;overflow-x:auto;margin:0 0 16px;color:var(--ink-2);
   }
-  .prose .tablewrap{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:5px;}
+  .prose .tablewrap{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:4px;}
   .prose table{border-collapse:collapse;width:100%;font-size:14px;min-width:420px;}
   .prose th,.prose td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5;}
   .prose th{background:var(--surface-2);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:700;white-space:nowrap;}
@@ -208,14 +223,14 @@
   .srclink{
     display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
     background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent-ink);
-    padding:9px 14px;border-radius:5px;text-decoration:none;font-size:14.5px;font-weight:600;
+    padding:9px 14px;border-radius:4px;text-decoration:none;font-size:14.5px;font-weight:600;
   }
-  .srclink:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .srclink:hover{background:var(--accent);color:var(--on-accent);border-color:var(--accent);}
   .srclink .ar{font-size:11px;opacity:.7;}
   .srcnote{margin:0;font-size:14.5px;color:var(--ink-2);max-width:64ch;line-height:1.6;}
 
   .deliv{
-    background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:5px;
+    background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;
     padding:12px 15px;margin:0 0 16px;font-size:13.5px;color:var(--accent-ink);font-weight:600;
   }
 
@@ -225,13 +240,13 @@
   }
   .bigbtn{
     flex:1 1 auto;min-width:190px;display:flex;align-items:center;justify-content:center;gap:9px;
-    background:var(--accent);color:#fff;border:1px solid var(--accent);border-radius:6px;
+    background:var(--accent);color:var(--on-accent);border:1px solid var(--accent);border-radius:4px;
     padding:14px 20px;font-size:15px;font-weight:600;cursor:pointer;
   }
   .bigbtn:hover{filter:brightness(1.08);}
   .bigbtn.isdone{background:var(--good-soft);color:var(--good);border-color:var(--good);}
   .navbtn2{
-    background:var(--surface);border:1px solid var(--line);border-radius:6px;
+    background:var(--surface);border:1px solid var(--line);border-radius:4px;
     padding:14px 18px;font-size:14.5px;cursor:pointer;color:var(--ink-2);white-space:nowrap;
   }
   .navbtn2:hover:not(:disabled){border-color:var(--line-2);color:var(--ink);}
@@ -245,7 +260,7 @@
   .phase-head .gl{margin:0;font-family:var(--serif);font-style:italic;font-size:14px;color:var(--ink-3);}
   .wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:13px;}
   .wcard{
-    background:var(--surface);border:1px solid var(--line);border-radius:6px;
+    background:var(--surface);border:1px solid var(--line);border-radius:4px;
     padding:15px 17px 12px;display:flex;flex-direction:column;gap:11px;
   }
   .wcard-top{display:flex;gap:11px;align-items:flex-start;}
@@ -270,7 +285,7 @@
   .studios{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:15px;}
   .studio{
     background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--ink);
-    border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:11px;
+    border-radius:4px;padding:20px;display:flex;flex-direction:column;gap:11px;
   }
   .studio.cap{border-top-color:var(--accent);}
   .studio .smeta{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);}
@@ -298,18 +313,95 @@
   .st{color:var(--accent-ink);font-size:10px;}
 
   /* ================= SETTINGS / SYNC ================= */
-  .panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px 22px;display:flex;flex-direction:column;gap:13px;max-width:640px;}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:20px 22px;display:flex;flex-direction:column;gap:13px;max-width:640px;}
   .panel h3{margin:0;font-family:var(--serif);font-size:19px;font-weight:600;}
   .panel p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.6;}
   .synccode{
     font-family:var(--mono);font-size:12px;background:var(--surface-2);border:1px solid var(--line);
-    border-radius:5px;padding:11px 13px;width:100%;color:var(--ink);resize:vertical;min-height:76px;
+    border-radius:4px;padding:11px 13px;width:100%;color:var(--ink);resize:vertical;min-height:76px;
   }
   .row{display:flex;gap:9px;flex-wrap:wrap;}
-  .pbtn{background:var(--accent);color:#fff;border:1px solid var(--accent);border-radius:5px;padding:9px 15px;font-size:14px;font-weight:600;cursor:pointer;}
+  .pbtn{background:var(--accent);color:var(--on-accent);border:1px solid var(--accent);border-radius:4px;padding:9px 15px;font-size:14px;font-weight:600;cursor:pointer;}
   .pbtn.sec{background:var(--surface);color:var(--ink-2);border-color:var(--line);font-weight:400;}
   .pbtn.sec:hover{border-color:var(--line-2);color:var(--ink);}
   .ok{font-size:13px;color:var(--good);}
+
+  /* ================= CHECKPOINTS ================= */
+
+  .cpbanner{
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+    background:var(--accent-soft);border:1px solid var(--accent-line);
+    border-radius:4px;padding:15px 18px;margin-bottom:24px;
+  }
+  .cpbanner .txt{flex:1;min-width:220px;}
+  .cpbanner b{display:block;font-size:15px;font-weight:600;color:var(--accent-ink);}
+  .cpbanner span{font-size:13.5px;color:var(--ink-2);}
+  .cpbanner button{
+    background:var(--accent);color:var(--on-accent);border:1px solid var(--accent);border-radius:4px;
+    padding:9px 16px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;
+  }
+
+  .cp{background:var(--surface);border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-bottom:16px;}
+  .cp.is-locked{opacity:.62;}
+  .cp.is-done{border-color:var(--accent-line);}
+  .cp-head{padding:16px 20px;display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;border-bottom:1px solid var(--line);}
+  .cp-head .cn{font-family:var(--mono);font-size:12px;color:var(--ink-3);padding-top:5px;font-variant-numeric:tabular-nums;}
+  .cp-head .ct{flex:1;min-width:190px;}
+  .cp-head h3{margin:0;font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;}
+  .cp-head .sub{font-size:13px;color:var(--ink-3);margin-top:2px;}
+  .cp-lock{padding:14px 20px;font-size:13.5px;color:var(--ink-3);background:var(--surface-2);}
+  .cp-lock .track{height:5px;background:var(--surface-3);border-radius:99px;overflow:hidden;margin-top:9px;max-width:240px;}
+  .cp-lock .track i{display:block;height:100%;background:var(--ink-3);border-radius:99px;}
+  .cp-body{padding:20px 22px 24px;}
+  .cp-toggle{
+    width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);
+    padding:12px 20px;cursor:pointer;font-size:13.5px;color:var(--ink-3);
+  }
+  .cp-toggle:hover{background:var(--surface-2);color:var(--ink);}
+
+  .score{display:flex;flex-direction:column;gap:9px;margin:14px 0 4px;}
+  .score-row{display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center;}
+  .score-row .ax{font-size:13.5px;font-weight:600;}
+  .pips{display:flex;gap:5px;flex-wrap:wrap;}
+  .pip{
+    width:32px;height:28px;border:1px solid var(--line);background:var(--surface-2);
+    border-radius:4px;cursor:pointer;font-family:var(--mono);font-size:12px;color:var(--ink-3);
+  }
+  .pip:hover{border-color:var(--line-2);color:var(--ink);}
+  .pip.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700;}
+  .cp-total{
+    display:flex;align-items:baseline;gap:9px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
+  }
+  .cp-total b{font-family:var(--mono);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;}
+  .cp-total span{font-size:13px;color:var(--ink-3);}
+  .cp-flag{font-size:13.5px;color:var(--warn);background:var(--warn-soft);border-left:2px solid var(--warn);
+    padding:10px 14px;border-radius:0 4px 4px 0;margin-top:12px;}
+
+  .prof{overflow-x:auto;border:1px solid var(--line);border-radius:4px;background:var(--surface);}
+  .prof table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px;}
+  .prof th,.prof td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;}
+  .prof th{background:var(--surface-2);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:700;}
+  .prof tr:last-child td{border-bottom:0;}
+  .prof td:first-child{font-weight:600;color:var(--ink);}
+  .prof .base td{color:var(--ink-3);font-style:italic;}
+  .prof .pend td{color:var(--ink-3);}
+  .prof .hi{color:var(--accent-ink);font-weight:700;}
+
+  /* ===== Zero display treatment: one family, heavy weight, tight tracking ===== */
+
+  .phase-head h3, .studio h3, .cp-head h3, footer h2, .panel h3{
+    font-family:var(--serif); font-weight:800; letter-spacing:-.035em;
+  }
+  .wcard-top b, .wtitle b{ font-weight:700; letter-spacing:-.022em; }
+  .wk-thesis, .prose blockquote{ font-family:var(--sans); letter-spacing:-.011em; font-weight:500; }
+  .prose h4{ letter-spacing:.1em; }
+  .fact b, .prog-num b, .rail-prog .pct b, .cp-total b{ letter-spacing:-.04em; }
+
+  /* Lime is a fill, not text. On the light theme accent-ink resolves to near-black,
+     so accent-coloured labels stay readable; the lime only ever appears behind them. */
+  .block-head h3{ color:var(--ink); }
+  .srclink{ font-weight:700; }
+  .chip.done{ background:var(--accent); color:var(--on-accent); }
 
   /* ================= MOBILE ================= */
 
@@ -322,13 +414,13 @@
     .view{padding:20px 16px 0;}
     .topbar{padding:12px 16px;}
     .mobtabs{
-      display:grid;grid-template-columns:repeat(5,1fr);position:fixed;bottom:0;left:0;right:0;z-index:40;
+      display:grid;grid-template-columns:repeat(6,1fr);position:fixed;bottom:0;left:0;right:0;z-index:40;
       background:var(--surface);border-top:1px solid var(--line);
       padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));
     }
     .mtab{
       display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:0;
-      padding:7px 2px;border-radius:6px;cursor:pointer;color:var(--ink-3);font-size:10px;letter-spacing:.02em;
+      padding:7px 2px;border-radius:4px;cursor:pointer;color:var(--ink-3);font-size:10px;letter-spacing:.02em;
     }
     .mtab .ic{font-size:15px;}
     .mtab[aria-current="page"]{color:var(--accent-ink);font-weight:600;}
@@ -367,6 +459,7 @@
     </div>
 
     <section class="view" id="v-today"></section>
+    <section class="view" id="v-checkpoints" hidden></section>
     <section class="view" id="v-course" hidden></section>
     <section class="view" id="v-studios" hidden></section>
     <section class="view" id="v-library" hidden></section>
@@ -2184,19 +2277,207 @@ var LIBRARY = [
 ];
 
 /* =========================================================================
+   CHECKPOINTS
+   ========================================================================= */
+
+var AXES = [
+  {k:"f",label:"Framing",  base:2},
+  {k:"s",label:"Structure",base:2},
+  {k:"r",label:"Rationale",base:2},
+  {k:"c",label:"Craft",    base:5},
+  {k:"x",label:"Failure",  base:1}
+];
+
+var CHECKPOINTS = [
+{id:"01",phase:1,after:"Week 03",name:"The Cold Diagnosis",time:"90 minutes",
+tests:"Whether you can diagnose an interface mechanically, on demand, without the crutch of familiarity.",
+body:`
+<h4>Setup</h4>
+<p><strong>Get someone else to pick the interface.</strong> Genuinely — text a friend and ask them to name an app and a specific task in it. If you pick it yourself you'll unconsciously choose something you've already formed opinions about, and the test becomes a recall exercise.</p>
+<p>Failing that: open something you use <em>rarely</em> — a government portal, an insurance app, a booking system, your bank's business section.</p>
+
+<h4>The task — 60 minutes, timed</h4>
+<p>Produce a diagnosis of one flow. Constraints, all enforced:</p>
+<ul>
+<li><strong>Vocabulary lock.</strong> Only Phase 1–2 terms: the two gulfs, the seven action stages, affordance, signifier, constraint, mapping, conceptual model, directness, pre-attentive, the Gestalt laws, working memory / chunking / cognitive load, Fitts, Hick, slip, mistake, mode, and the ten heuristics. <em>If you can't express a problem in these terms, you haven't understood it — don't write it down.</em></li>
+<li><strong>Minimum 12 findings</strong>, each tagged with its named principle.</li>
+<li><strong>Forced severity distribution.</strong> At most two 4s. At least four 1s or 2s.</li>
+<li><strong>At least 5 findings must be structural</strong>, not cosmetic. Structural = about what the flow <em>requires of the user</em>: sequence, memory, state, mapping. "The button is the wrong blue" is cosmetic. "Step 3 requires a value the user last saw on step 1" is structural.</li>
+<li><strong>One conceptual model statement</strong> — three sentences on the story the product tells about how it works, and where it leaks.</li>
+</ul>
+
+<h4>The comparison — 30 minutes</h4>
+<p>Open Deliverable <strong>A1</strong> (Week 1 Day 6) and <strong>A3</strong> (Week 3 Day 6):</p>
+<ol>
+<li>Count findings in A1 that were cosmetic vs structural. Write the ratio.</li>
+<li>Do the same for today's diagnosis.</li>
+<li><strong>Write the delta in one paragraph.</strong> Not "I improved" — specifically what kind of problem you can now see that you couldn't three weeks ago.</li>
+<li>Re-read your Week 1 Day 6 prediction. What did you not know you didn't know?</li>
+</ol>`,
+bar:["≥ 60% of findings are structural","Every finding carries a named principle","Severity distribution forced, not clustered at 3–4","At least one finding genuinely surprised you","You can state the conceptual model and its leak"],
+miss:"Re-read Week 1 Day 2 (the Action Cycle) and Week 3 Day 4 (heuristic evaluation method), then run this again on a different interface. This is the phase everything else is built on."},
+
+{id:"02",phase:2,after:"Week 06",name:"The Framing Test",time:"2 hours",
+tests:"Whether you can go from a vague stakeholder request to a structural spec — and, critically, whether you can tell what you know from what you're assuming.",
+body:`
+<h4>Setup — pick one cold request</h4>
+<p>Don't read ahead and choose the easiest. Take the one matching today's date mod 5.</p>
+<blockquote><p><strong>1.</strong> "Our support team is drowning. Can we add a chatbot to the help centre?"<br><br>
+<strong>2.</strong> "Customers keep asking where their order is. We should send more emails."<br><br>
+<strong>3.</strong> "The team wants a dashboard so everyone can see how the quarter is going."<br><br>
+<strong>4.</strong> "Sign-ups are fine but nobody finishes setup. Can we make onboarding shorter?"<br><br>
+<strong>5.</strong> "Our best customers say the product feels dated. We need a redesign."</p></blockquote>
+<p>Each is a real shape: a solution in disguise · a symptom mistaken for a cause · a request with an unexamined audience · a metric with an assumed diagnosis · a vague quality complaint.</p>
+
+<h4>The task — 2 hours, timed</h4>
+<div class="tablewrap"><table>
+<tr><th></th><th>Output</th><th>~Time</th></tr>
+<tr><td>1</td><td>Ladder it — at least 3 "what would that fix?" levels</td><td>10 min</td></tr>
+<tr><td>2</td><td>The reframed problem, in one sentence</td><td>5 min</td></tr>
+<tr><td>3</td><td>Three job statements — functional, emotional, social, full situation clause</td><td>15 min</td></tr>
+<tr><td>4</td><td>One POV — verb need, surprising and falsifiable "because"</td><td>10 min</td></tr>
+<tr><td>5</td><td>Five HMWs at different altitudes; mark the one you'd design against</td><td>15 min</td></tr>
+<tr><td>6</td><td>Two pitches — 2-week and 6-week appetites, fat-marker sketches</td><td>25 min</td></tr>
+<tr><td>7</td><td>Flow diagram — all branches, ≥3 failure paths, ≥2 entry points</td><td>30 min</td></tr>
+<tr><td>8</td><td>State matrix skeleton — screens × dimensions, <code>—</code> cells justified</td><td>10 min</td></tr>
+</table></div>
+
+<h4>The catch — this is the actual test</h4>
+<p><strong>You cannot do research.</strong> You have no users to talk to. So every claim you make about the user is an assumption.</p>
+<p><strong>Mark every assumption explicitly</strong>, inline, with what would falsify it:</p>
+<pre>ASSUMPTION: managers check team state weekly, not continuously.
+FALSIFIED BY: interview data showing daily checking, or
+              analytics showing &gt;3 sessions/week.</pre>
+<p><strong>Minimum 8 marked assumptions.</strong> The single most common failure of designers who've learned frameworks is running the framework confidently on invented inputs and mistaking the output for insight. <em>If you produce a beautiful POV with zero marked assumptions, you have failed this checkpoint no matter how good the flow looks.</em></p>
+
+<h4>The comparison</h4>
+<p>Open your Week 4 Day 1 laddering and your Week 5 Day 6 synthesis (B2):</p>
+<ol>
+<li>How many levels deep did you ladder in Week 4? How many today?</li>
+<li>In Week 5 the prediction check showed something you believed was wrong. <strong>Did you catch a similar over-confidence in yourself today, without research to correct you?</strong></li>
+<li>One paragraph: what can you now see in a stakeholder request that you couldn't in Week 4?</li>
+</ol>`,
+bar:["The reframed problem is genuinely different from the request as stated","≥ 8 assumptions marked, each with a falsifier","Flow has ≥ 3 failure paths and ≥ 2 entry points","The two appetites differ in scope, not just polish","You can say what the 6-week version buys, in one sentence"],
+miss:"The likely miss is assumptions. Re-run just steps 1–4 on a second request, marking assumptions as you go."},
+
+{id:"03",phase:3,after:"Week 09",name:"The Handoff",time:"2 hours",
+tests:"Whether your system works without you in the room. The only real test of a design system, and almost nobody runs it on themselves.",
+body:`
+<h4>Setup</h4>
+<p>You need a second party. In order of preference: a designer who doesn't know your project · an engineer · a non-designer friend · Claude. <strong>Anyone but you.</strong></p>
+
+<h4>Part 1 — The build test (45 min)</h4>
+<p>Hand them your Studio B system — tokens, components, principles, governance page — and a brief for <strong>a screen you did not design</strong>. Adjacent but new: a settings page · a bulk-edit view · a search-results state · an account-deletion flow · a notification centre.</p>
+<p>Then <strong>leave them alone.</strong> No answering questions. Write down every question they <em>wanted</em> to ask — each one is a hole in your documentation.</p>
+<div class="tablewrap"><table>
+<tr><th>Test</th><th>Pass</th></tr>
+<tr><td>Autonomy — could they build it without asking you anything?</td><td>0 blocking questions</td></tr>
+<tr><td>Fidelity — did they use your tokens, or invent values?</td><td>&lt; 3 invented values</td></tr>
+<tr><td>Coherence — does it look like the same product?</td><td>Yes, to a third party's eye</td></tr>
+</table></div>
+<p><strong>Autonomy is the one that matters.</strong> A system that requires its author present is not a system; it's a habit.</p>
+
+<h4>Part 2 — The torture test (45 min)</h4>
+<p>Take your densest screen. Apply the full pressure set:</p>
+<ul>
+<li>Longest realistic string in every field, then an implausibly long one</li>
+<li>A record with every optional field null</li>
+<li>Lists at 0, 1, 2, 200 items</li>
+<li>Numbers at 0, 7, 1,247, 1,300,000 — does the column jump?</li>
+<li>+30% string length (stand-in for German)</li>
+<li>320px, 2560px, and 200% browser zoom</li>
+<li>An inline error appearing mid-layout — does anything below it move?</li>
+</ul>
+<p><strong>Count the failures. Fix them. Then count how many you'd have shipped.</strong></p>
+
+<h4>Part 3 — The motion spec (30 min)</h4>
+<p>Take the most important transition in your flow. Specify it completely, <strong>in tokens only</strong>: what moves / stays / leads / follows · duration and easing token per element · stagger offsets and the cap · what happens on interruption at 40% · the reduced-motion variant.</p>
+<p><em>If you need a value your token set doesn't have, that's a finding</em> — not a licence to invent one. Either the token set is incomplete or the animation is wrong.</p>
+
+<h4>The comparison</h4>
+<ol>
+<li><strong>Week 7 Day 2:</strong> you counted unique spacing values in one screen. What was the number? Count again now.</li>
+<li><strong>Week 1:</strong> could a stranger have built a screen from anything you'd produced then?</li>
+<li>One paragraph: what does your system now do that your taste used to do?</li>
+</ol>`,
+bar:["0 blocking questions from the second party","< 3 invented values in what they built","Every torture-test failure fixed","Motion spec'd entirely in tokens, with an interruption case and a reduced-motion variant","Unique spacing values ≤ 8"],
+miss:"It will be Autonomy. Read what they wanted to ask, write those answers into the system, and re-run Part 1 with a different person and a different screen."},
+
+{id:"04",phase:4,after:"Week 12",name:"The Defence",time:"2 hours",
+tests:"Whether the work survives contact with other people — and whether you survive it without becoming defensive or capitulating.",
+body:`
+<h4>Part 1 — The critique (60 min)</h4>
+<p>Present Studio C to <strong>two people, one of whom is not a designer.</strong> Run the Week 12 Day 3 protocol properly:</p>
+<ul>
+<li>You frame first, two minutes: the job, the constraint, the <em>specific</em> thing you want help with</li>
+<li>Silent review, five minutes, before anyone speaks</li>
+<li><strong>Three passes in order — structural, interaction, visual.</strong> Enforce it. When someone opens with "the type feels heavy," say "hold that for pass three."</li>
+<li>Questions before opinions. Capture everything verbatim.</li>
+</ul>
+<p><strong>Your only job in the room is to understand.</strong> Write every point down before responding to any of them. Do not explain. Do not defend. Notice the moment you most want to — and write down which point it was, <em>because that's the one you're least sure about.</em></p>
+
+<h4>Part 2 — The response (45 min)</h4>
+<p>Now, alone, write the response document:</p>
+<ol>
+<li><strong>Everything I heard</strong> — the raw list</li>
+<li><strong>Classified</strong> — for each: a <em>problem</em>, a <em>solution</em>, or a <em>preference</em>? Solutions get translated back into the problem underneath.</li>
+<li><strong>What I'll act on</strong>, and what changes</li>
+<li><strong>What I won't act on, and why.</strong> At least one. A designer who accepts every piece of feedback has no position; one who rejects it all has no collaborators. <em>The reasoning is the deliverable.</em></li>
+<li><strong>What I got wrong</strong> — one honest paragraph</li>
+</ol>
+
+<h4>Part 3 — Rationale under pressure (15 min)</h4>
+<p>Pick the <strong>three most significant decisions</strong> in Studio C. For each, in three sentences: the decision, the tradeoff, and <strong>what you gave up.</strong></p>
+<p>If you cannot name what you gave up, you didn't make a decision — you made a guess that happened to work. This is the fastest signal of seniority available to you, and it will be tested in every interview and every design review for the rest of your career.</p>
+
+<h4>The final comparison</h4>
+<ol>
+<li><strong>Score all five axes</strong> and plot against your Week 1 baseline.</li>
+<li><strong>Has the shape flattened?</strong> If Craft is still highest, name where you retreated.</li>
+<li><strong>Re-read the 200 words from Week 1 Day 1</strong> — "the last time I designed something that looked right and worked badly." Write what you'd <em>now</em> say was actually wrong with it. This paragraph is the clearest possible measure of the twelve weeks.</li>
+<li><strong>Read your twelve answers</strong> to the recurring question — <em>where did I default to visual craft instead of the harder thinking?</em> Look for the pattern. <strong>That pattern is your development plan for next year.</strong></li>
+</ol>`,
+bar:["You ran three passes in order and did not let it start at visual","You did not defend in the room","You declined at least one piece of feedback, with a stated reason","You named what you gave up on all three decisions","All five axes ≥ 4","The profile has flattened — Craft is no longer the outlier"],
+miss:"If the profile hasn't flattened, the gap is real information, not failure. Re-run Checkpoint 02 and 03 — those two carry the axes that lag."}
+];
+
+function phaseWeeks(p){ var out=[]; COURSE.forEach(function(w){ if(w.phase===p) out.push(w.w); }); return out; }
+function phaseDone(p){
+  var ws=phaseWeeks(p), n=0;
+  ws.forEach(function(w){ for(var d=1;d<=6;d++){ if(state.done[key(w,d)]) n++; } });
+  return {done:n, total:ws.length*6, unlocked:n>=ws.length*6};
+}
+function cpScored(id){ return !!(state.cp && state.cp[id] && state.cp[id].t); }
+function cpTotal(id){
+  if(!state.cp||!state.cp[id]) return 0;
+  var s=state.cp[id], t=0;
+  AXES.forEach(function(a){ t+=(s[a.k]||0); });
+  return t;
+}
+/* the checkpoint that is unlocked, unscored, and earliest */
+function pendingCP(){
+  for(var i=0;i<CHECKPOINTS.length;i++){
+    var c=CHECKPOINTS[i];
+    if(phaseDone(c.phase).unlocked && !cpScored(c.id)) return c;
+  }
+  return null;
+}
+
+/* =========================================================================
    APP
    ========================================================================= */
 
 var VIEWS = [
-  {id:"today",   label:"Today",   ic:"◉"},
-  {id:"course",  label:"Course",  ic:"▤"},
-  {id:"studios", label:"Studios", ic:"◈"},
-  {id:"library", label:"Library", ic:"❑"},
-  {id:"settings",label:"Sync",    ic:"⇄"}
+  {id:"today",      label:"Today",   ic:"◉"},
+  {id:"checkpoints",label:"Marks",   ic:"◆"},
+  {id:"course",     label:"Course",  ic:"▤"},
+  {id:"studios",    label:"Studios", ic:"◈"},
+  {id:"library",    label:"Library", ic:"❑"},
+  {id:"settings",   label:"Sync",    ic:"⇄"}
 ];
 
 var KEY = "pdc-app-v1";
-var state = {done:{}, dlv:{}, cur:{w:1,d:1}, days:[], last:null};
+var state = {done:{}, dlv:{}, cp:{}, cur:{w:1,d:1}, days:[], last:null};
 
 function loadState(){
   try{
@@ -2281,6 +2562,16 @@ function renderToday(){
   var idx=(w-1)*6+d;
 
   var h='';
+
+  /* A phase just closed and its checkpoint is unscored — surface it above everything. */
+  var pend=pendingCP();
+  if(pend){
+    h+='<div class="cpbanner"><div class="txt">';
+    h+='<b>Checkpoint '+pend.id+' unlocked — '+pend.name+'</b>';
+    h+='<span>Phase 0'+pend.phase+' is complete. Before you go further, take the assessment — it’s '+pend.time+' and it’s the only place you get a measured read on your progress.</span>';
+    h+='</div><button type="button" id="go-cp">Open checkpoint '+pend.id+' →</button></div>';
+  }
+
   h+='<div class="today-head">';
   h+= '<div class="today-meta">';
   h+=  '<span class="chip ph'+wk.phase+'">Phase 0'+wk.phase+' · '+ph.title+'</span>';
@@ -2322,6 +2613,9 @@ function renderToday(){
   v.innerHTML=h;
   document.getElementById("crumb").textContent="Today · Week "+pad(w)+" Day "+d;
 
+  var gcp=document.getElementById("go-cp");
+  if(gcp) gcp.addEventListener("click",function(){ show("checkpoints"); });
+
   var mk=document.getElementById("mark");
   if(mk) mk.addEventListener("click",function(){ toggleDone(w,d); });
   var pv=document.getElementById("prev-day");
@@ -2339,18 +2633,143 @@ function step(dir){
 }
 
 function toggleDone(w,d){
-  var k=key(w,d);
+  var k=key(w,d), justClosedPhase=false;
   if(state.done[k]){ delete state.done[k]; }
   else{
     state.done[k]=1;
     var t=todayStr();
     if(!state.days) state.days=[];
     if(state.days.indexOf(t)===-1) state.days.push(t);
-    var nxt=firstIncomplete();
-    state.cur=nxt;
+
+    /* Did this complete a phase? If so, the checkpoint is the next thing, not the next day. */
+    var wk=getWeek(w);
+    if(wk && phaseDone(wk.phase).unlocked && !cpScored(CHECKPOINTS[wk.phase-1].id)) justClosedPhase=true;
+
+    state.cur=firstIncomplete();
   }
-  saveState(); renderToday(); renderCourse(); renderProgress();
+  saveState(); renderToday(); renderCheckpoints(); renderCourse(); renderProgress();
+  if(justClosedPhase){ show("checkpoints"); return; }
   window.scrollTo({top:0,behavior:"auto"});
+}
+
+var cpOpen = {};
+
+function renderCheckpoints(){
+  var v=document.getElementById("v-checkpoints");
+  var h='<div class="today-head"><p class="eyebrow">Four assessments</p><h1 class="vt">Checkpoints</h1>';
+  h+='<p class="lede">Not quizzes — <strong>cold transfer tests</strong>. One at the end of each phase. You apply that phase’s tools to something you haven’t seen, under time pressure, then score yourself against your own baseline. This is the only place in the course you get a number.</p></div>';
+
+  /* ---- the profile ---- */
+  h+='<h2 class="st" style="margin-bottom:12px">Progress profile</h2>';
+  h+='<div class="prose" style="max-width:66ch"><p>Same five axes every time. Over four checkpoints you get a shape. <strong>The interesting number is not the total — it’s whether the shape has flattened.</strong> If Craft is still your highest score at Checkpoint 03, you’ve been retreating into what you were already good at.</p></div>';
+  h+='<div class="prof"><table><tr><th>Checkpoint</th>';
+  AXES.forEach(function(a){ h+='<th>'+a.label+'</th>'; });
+  h+='<th>Total</th></tr>';
+
+  var baseMax=0; AXES.forEach(function(a){ if(a.base>baseMax) baseMax=a.base; });
+  h+='<tr class="base"><td>Baseline — Week 1</td>';
+  AXES.forEach(function(a){ h+='<td'+(a.base===baseMax?' class="hi"':'')+'>'+a.base+'</td>'; });
+  h+='<td>12</td></tr>';
+
+  CHECKPOINTS.forEach(function(c){
+    var scored=cpScored(c.id);
+    if(!scored){
+      h+='<tr class="pend"><td>'+c.id+' — '+c.name+'</td>';
+      AXES.forEach(function(){ h+='<td>·</td>'; });
+      h+='<td>·</td></tr>';
+    } else {
+      var s=state.cp[c.id], mx=0;
+      AXES.forEach(function(a){ if((s[a.k]||0)>mx) mx=s[a.k]||0; });
+      h+='<tr><td>'+c.id+' — '+c.name+'</td>';
+      AXES.forEach(function(a){ h+='<td'+((s[a.k]||0)===mx?' class="hi"':'')+'>'+(s[a.k]||0)+'</td>'; });
+      h+='<td>'+cpTotal(c.id)+' / 25</td></tr>';
+    }
+  });
+  h+='</table></div>';
+
+  /* ---- the cards ---- */
+  h+='<h2 class="st" style="margin:34px 0 14px">The assessments</h2>';
+
+  CHECKPOINTS.forEach(function(c){
+    var st=phaseDone(c.phase), scored=cpScored(c.id);
+    var open = cpOpen[c.id] !== undefined ? cpOpen[c.id] : (st.unlocked && !scored);
+    var cls="cp"+(!st.unlocked?" is-locked":"")+(scored?" is-done":"");
+    h+='<article class="'+cls+'">';
+    h+='<div class="cp-head"><span class="cn">CP'+c.id+'</span><div class="ct"><h3>'+c.name+'</h3>';
+    h+='<div class="sub">After '+c.after+' · '+c.time+' · Phase 0'+c.phase+'</div></div>';
+    if(scored) h+='<span class="chip done">✓ '+cpTotal(c.id)+' / 25</span>';
+    else if(st.unlocked) h+='<span class="chip ph'+c.phase+'">Unlocked</span>';
+    else h+='<span class="chip ghost">Locked</span>';
+    h+='</div>';
+
+    if(!st.unlocked){
+      h+='<div class="cp-lock">Unlocks when Phase 0'+c.phase+' is complete — <strong>'+st.done+' of '+st.total+' days</strong> done.';
+      h+='<div class="track"><i style="width:'+(st.done/st.total*100).toFixed(1)+'%"></i></div></div>';
+    } else if(open){
+      h+='<div class="cp-body"><div class="prose">';
+      h+='<p><strong>What it tests.</strong> '+c.tests+'</p>';
+      h+=c.body;
+      h+='<h4>The bar</h4><ul>';
+      c.bar.forEach(function(b){ h+='<li>'+b+'</li>'; });
+      h+='</ul>';
+      h+='<div class="warn"><strong>If you miss the bar:</strong> '+c.miss+'</div>';
+      h+='<h4>Score the five axes</h4>';
+      h+='<p>1 = the left-hand column of the rubric, 5 = the right. <strong>Score honestly</strong> — an inflated profile costs you the only feedback instrument you have.</p>';
+      h+='</div>';
+
+      h+='<div class="score">';
+      AXES.forEach(function(a){
+        var cur = (state.cp[c.id] && state.cp[c.id][a.k]) || 0;
+        h+='<div class="score-row"><span class="ax">'+a.label+'</span><div class="pips">';
+        for(var i=1;i<=5;i++){
+          h+='<button class="pip'+(cur===i?' on':'')+'" type="button" data-cp="'+c.id+'" data-ax="'+a.k+'" data-v="'+i+'" aria-label="'+a.label+' '+i+'">'+i+'</button>';
+        }
+        h+='</div></div>';
+      });
+      h+='</div>';
+
+      var t=cpTotal(c.id);
+      h+='<div class="cp-total" style="padding-left:22px;padding-right:22px"><b>'+(t||"—")+'</b><span>/ 25'+(scored?' · recorded '+state.cp[c.id].t:'')+'</span></div>';
+
+      if(scored){
+        var s=state.cp[c.id], mx=0, mxk="";
+        AXES.forEach(function(a){ if((s[a.k]||0)>mx){ mx=s[a.k]||0; mxk=a.label; } });
+        if(mxk==="Craft" && c.id!=="01"){
+          h+='<div class="cp-flag" style="margin:12px 22px 0">Craft is still your highest axis. That’s the signal to watch — it usually means a structural or framing decision got resolved with visual polish instead. Worth naming where.</div>';
+        }
+      }
+      h+='<button class="cp-toggle" type="button" data-tog="'+c.id+'">Collapse</button>';
+    } else {
+      h+='<button class="cp-toggle" type="button" data-tog="'+c.id+'">'+(scored?'Reopen — review or rescore':'Open the assessment')+'</button>';
+    }
+    h+='</article>';
+  });
+
+  h+='<div class="prose" style="margin-top:26px;max-width:66ch"><h4>Running one with Claude</h4>';
+  h+='<p>Type <code>/product-design-course checkpoint</code>. Claude will set the cold material, hold the time box, and — the thing you can’t do alone — <strong>tell you when your self-score is generous.</strong> Ask for that explicitly.</p>';
+  h+='<p>It can also pick the interface for CP01 without using one you’ve mentioned, play the second party for CP03, and run the CP04 critique as a skeptical non-designer in three enforced passes.</p></div>';
+
+  v.innerHTML=h;
+
+  Array.prototype.forEach.call(v.querySelectorAll(".pip"),function(b){
+    b.addEventListener("click",function(){
+      var id=b.dataset.cp;
+      if(!state.cp[id]) state.cp[id]={};
+      state.cp[id][b.dataset.ax]=parseInt(b.dataset.v,10);
+      var filled=0; AXES.forEach(function(a){ if(state.cp[id][a.k]) filled++; });
+      if(filled===AXES.length && !state.cp[id].t) state.cp[id].t=todayStr();
+      saveState(); renderCheckpoints(); renderProgress();
+    });
+  });
+  Array.prototype.forEach.call(v.querySelectorAll("[data-tog]"),function(b){
+    b.addEventListener("click",function(){
+      var id=b.dataset.tog;
+      var st=phaseDone(CHECKPOINTS.filter(function(c){return c.id===id;})[0].phase);
+      var cur = cpOpen[id] !== undefined ? cpOpen[id] : (st.unlocked && !cpScored(id));
+      cpOpen[id]=!cur;
+      renderCheckpoints();
+    });
+  });
 }
 
 function renderCourse(){
@@ -2446,7 +2865,7 @@ function renderSettings(){
   v.innerHTML=h;
 
   var ta=document.getElementById("code");
-  ta.value=JSON.stringify({done:state.done,dlv:state.dlv,cur:state.cur,days:state.days});
+  ta.value=JSON.stringify({done:state.done,dlv:state.dlv,cp:state.cp,cur:state.cur,days:state.days});
   document.getElementById("copy").addEventListener("click",function(){
     ta.select();
     try{ document.execCommand("copy"); }catch(e){}
@@ -2456,13 +2875,15 @@ function renderSettings(){
   document.getElementById("load").addEventListener("click",function(){
     try{
       var p=JSON.parse(ta.value);
-      state.done=p.done||{}; state.dlv=p.dlv||{}; state.cur=p.cur||{w:1,d:1}; state.days=p.days||[];
+      state.done=p.done||{}; state.dlv=p.dlv||{}; state.cp=p.cp||{};
+      state.cur=p.cur||{w:1,d:1}; state.days=p.days||[];
       saveState(); renderAll();
       document.getElementById("okmsg").textContent="Loaded.";
     }catch(e){ document.getElementById("okmsg").textContent="That code didn’t parse."; }
   });
   document.getElementById("reset").addEventListener("click",function(){
-    state={done:{},dlv:{},cur:{w:1,d:1},days:[],last:null};
+    state={done:{},dlv:{},cp:{},cur:{w:1,d:1},days:[],last:null};
+    cpOpen={};
     saveState(); renderAll();
   });
 }
@@ -2475,14 +2896,14 @@ function show(id){
   Array.prototype.forEach.call(document.querySelectorAll("[data-view]"),function(b){
     if(b.dataset.view===id){ b.setAttribute("aria-current","page"); } else { b.removeAttribute("aria-current"); }
   });
-  var names={today:"Today",course:"Course",studios:"Studios",library:"Library",settings:"Sync"};
+  var names={today:"Today",checkpoints:"Checkpoints",course:"Course",studios:"Studios",library:"Library",settings:"Sync"};
   if(id!=="today") document.getElementById("crumb").textContent=names[id];
   if(id==="settings") renderSettings();
   window.scrollTo({top:0,behavior:"auto"});
 }
 
 function renderAll(){
-  renderToday(); renderCourse(); renderStudios(); renderLibrary(); renderProgress();
+  renderToday(); renderCheckpoints(); renderCourse(); renderStudios(); renderLibrary(); renderProgress();
 }
 
 renderRail();
