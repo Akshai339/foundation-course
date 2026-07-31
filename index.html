@@ -234,6 +234,19 @@
     padding:12px 15px;margin:0 0 16px;font-size:13.5px;color:var(--accent-ink);font-weight:600;
   }
 
+  .critique{
+    margin-top:20px;padding-top:18px;border-top:1px solid var(--line);
+    display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+  }
+  .critique .cbtn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--accent);color:var(--on-accent);border:1px solid var(--accent);
+    border-radius:4px;padding:10px 16px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;
+  }
+  .critique .cbtn:hover{filter:brightness(1.06);}
+  .critique .cbtn.copied{background:var(--surface-2);color:var(--ink-2);border-color:var(--line-2);}
+  .critique .chint{font-size:13px;color:var(--ink-3);flex:1;min-width:200px;line-height:1.45;}
+
   .daynav{
     display:flex;gap:10px;align-items:center;flex-wrap:wrap;
     margin-top:26px;padding-top:22px;border-top:1px solid var(--line);
@@ -2600,7 +2613,12 @@ function renderToday(){
   h+='<div class="block-body"><div class="prose">';
   if(day.deliverable) h+='<div class="deliv">'+day.deliverable+'</div>';
   h+=day.drill;
-  h+='</div></div></article>';
+  h+='</div>';
+  h+='<div class="critique">';
+  h+='<button class="cbtn" type="button" id="copy-crit">Copy critique prompt</button>';
+  h+='<span class="chint">Paste it into Claude with a screenshot of what you made. It carries today’s principles, the rubric, and the three-pass order — so you get a real review, not “looks good”.</span>';
+  h+='</div>';
+  h+='</div></article>';
 
   h+='</div>';
 
@@ -2616,12 +2634,91 @@ function renderToday(){
   var gcp=document.getElementById("go-cp");
   if(gcp) gcp.addEventListener("click",function(){ show("checkpoints"); });
 
+  var cc=document.getElementById("copy-crit");
+  if(cc) cc.addEventListener("click",function(){ copyText(buildCritiquePrompt(w,d),cc); });
+
   var mk=document.getElementById("mark");
   if(mk) mk.addEventListener("click",function(){ toggleDone(w,d); });
   var pv=document.getElementById("prev-day");
   if(pv) pv.addEventListener("click",function(){ step(-1); });
   var nx=document.getElementById("next-day");
   if(nx) nx.addEventListener("click",function(){ step(1); });
+}
+
+/* ---------- critique prompt ---------- */
+
+function plain(html){
+  var d=document.createElement("div");
+  d.innerHTML=html.replace(/<\/(p|li|h4|pre|tr|blockquote)>/gi,"\n").replace(/<li>/gi,"- ");
+  return (d.textContent||"").replace(/\n{3,}/g,"\n\n").replace(/[ \t]+\n/g,"\n").trim();
+}
+
+function buildCritiquePrompt(w,d){
+  var wk=getWeek(w), day=getDay(w,d);
+  if(!wk||!day) return "";
+  var ph=PHASES[wk.phase-1];
+  var L=[];
+
+  L.push("You are my product design tutor. I'm on Week "+pad(w)+", Day "+d+" of a 12-week course.");
+  L.push("");
+  L.push("PHASE "+wk.phase+" — "+ph.title+" ("+ph.gloss+")");
+  L.push("WEEK "+pad(w)+" — "+wk.title);
+  L.push("This week's thesis: "+plain(wk.thesis));
+  L.push("");
+  L.push("TODAY'S LESSON: "+day.title);
+  if(day.studio) L.push("This is a Studio "+day.studio+" day — a real project deliverable, not an exercise.");
+  if(day.deliverable) L.push("Deliverable: "+plain(day.deliverable));
+  L.push("");
+  L.push("THE DRILL I WAS SET:");
+  L.push(plain(day.drill));
+  L.push("");
+  L.push("---");
+  L.push("");
+  L.push("Critique what I've attached, as my tutor. Rules:");
+  L.push("");
+  L.push("1. THREE PASSES, IN THIS ORDER — do not start at visual:");
+  L.push("   a. STRUCTURAL — is this the right set of screens/steps/findings at all?");
+  L.push("   b. INTERACTION — within that structure, is each step clear, forgiving, low-load?");
+  L.push("   c. VISUAL — only now: hierarchy, spacing, type, colour.");
+  L.push("");
+  L.push("2. SCORE me 1-5 on each axis, one line of justification each:");
+  L.push("   Framing   — did I find the real problem, or just solve the stated one?");
+  L.push("   Structure — is it derived from a flow/task analysis, with states and branches?");
+  L.push("   Rationale — can I name the principle, the tradeoff, and what I gave up?");
+  L.push("   Craft     — is it systematic, or just consistent?");
+  L.push("   Failure   — are empty / loading / error / partial / wrong / offline designed?");
+  L.push("");
+  L.push("3. NAME the specific principle behind every finding, and which week it came from.");
+  L.push("");
+  L.push("4. MY KNOWN FAILURE MODE: I'm a visual and motion designer, so I resolve structural");
+  L.push("   and framing problems with visual polish. Call it out explicitly when you see it.");
+  L.push("   If Craft is my highest score, say so and tell me where I retreated.");
+  L.push("");
+  L.push("5. Be direct. Don't soften. End with the SINGLE highest-leverage fix — not a list.");
+  L.push("");
+  L.push("My work is attached / below:");
+  L.push("");
+  return L.join("\n");
+}
+
+function copyText(t,btn){
+  var done=function(){
+    if(!btn) return;
+    var old=btn.textContent;
+    btn.textContent="Copied — now paste into Claude";
+    btn.classList.add("copied");
+    setTimeout(function(){ btn.textContent=old; btn.classList.remove("copied"); },2600);
+  };
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(t).then(done,function(){ fallback(t,done); });
+  } else { fallback(t,done); }
+  function fallback(txt,cb){
+    var ta=document.createElement("textarea");
+    ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); cb(); }catch(e){ window.prompt("Copy this:",txt); }
+    document.body.removeChild(ta);
+  }
 }
 
 function step(dir){
