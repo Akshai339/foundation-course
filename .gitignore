@@ -1,3 +1,7 @@
 ﻿.obsidian/
 .DS_Store
 Thumbs.db
+
+# local app: browser profile (holds your saved progress) and machine-specific shortcut
+.appdata/
+Foundation.lnk

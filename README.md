@@ -51,6 +51,20 @@ Cold transfer tests at each phase boundary, scored on five axes. The instrument 
 
 ---
 
+## Running it as a local app
+
+```powershell
+powershell -ExecutionPolicy Bypass -File setup-local-app.ps1
+```
+
+Puts a **Foundation** icon on your desktop. Double-click it and the course opens in its own window — no browser tabs, no address bar, no server, works offline.
+
+Progress is stored in a dedicated browser profile at `.appdata/` inside the repo, so it survives restarts and isn't affected by clearing your normal browser data. That folder is gitignored.
+
+**On your phone**, on the same wifi, run `serve.bat` — it prints a `http://<your-ip>:8734/` address to open.
+
+---
+
 ## Running it — Claude is the primary way
 
 Clone the repo, open Claude Code in it, and say:
