@@ -5,8 +5,8 @@ type: tracker
 
 # Progress
 
-**Current:** Week 01, Day 1 — not started
-**Last session:** —
+**Current:** Week 01, Day 2 — not started
+**Last session:** 2026-08-01 — W01 D01 complete (drill critiqued)
 **Studio A:** A1 — · A2 — · A3 — · A4 —
 **Studio B:** not started
 **Studio C:** not started
@@ -17,7 +17,7 @@ type: tracker
 
 *One line per session. What you did, what landed, what didn't.*
 
-- *(empty — first entry goes here)*
+- 2026-08-01 — **W01 D01 done.** Drill: "looked right, worked badly" → a heavy mask-reveal/depth-map/lens-distortion app loader. Good, on-topic pick. Scored F2 S2 R2 **C3** Fail1 — landed almost exactly on the predicted baseline (Craft highest). Retreat called twice: solved a product-judgment problem with visual polish, then *re-*retreated in the post-mortem by re-framing it as a performance bug ("too heavy") instead of a problem-selection failure. Highest-leverage fix given: rewrite the ending to name what he optimised for (a feeling) vs the user's goal (speed to first action); correct move was shrink/delete the wait, not a lighter loader.
 
 ---
 
@@ -25,7 +25,8 @@ type: tracker
 
 *Drills you owe, things to revisit, patterns worth watching.*
 
-- Nothing yet.
+- **Owe: D01 drill rewrite.** Redo the final two sentences to confess the framing error (optimised for a feeling, not the user's goal), and add specifics — product name, actual load time, the device it died on. Re-score Framing when it lands.
+- **Watch:** the double retreat (into visual craft in the work, then into "technical bug" framing in the reflection). Same move will show up in Studio A diagnosis — hold him to the vocabulary, not the vibe.
 
 ---
 
